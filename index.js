@@ -4,24 +4,6 @@ alert("!Bienvenido a TusTillas!");
 
 
 
-
-const saludar = function() {
-    let nombre = prompt("Ingresa tu nombre y apellido:")
-    if (!isNaN(nombre)) { 
-        alert("Debes ingresar tu nombre sin numeros")
-        saludar()    
-    } else {
-        return alert(`¡Bienvenido ${nombre}! Estás en tu tienda de zapatillas online.`);    
-    }
- 
-}
-/* saludar()  */
-
-
-
-// objetos (zapatillas) de la tienda
-// array de objetos (zapatillas)
-
 let zapatillas = [{
     marca: "Nike",
     color: "Blanco",
@@ -109,64 +91,7 @@ let zapatillas = [{
     id: 2
 }];
 
-
-
-
-
 console.log(zapatillas.length);
-
-
-
-// bucle que muestra en alert el listado de zapatillas disponibles  
-let marcaZapatilla = "";
-
-for (let i = 0; i < zapatillas.length; i++) {
-    marcaZapatilla += `Marca: ${zapatillas[i].marca}, Color: ${zapatillas[i].color}, Talla: ${zapatillas[i].talla}\n`;
-}
-
-/* alert(`las zapatillas que tenemos son: \n${marcaZapatilla} `); */
-
-
-// esta funcion se ejecuta automaticamente despues de mostrar las zapatillas disponibles
-function verZapatillas() {
-    let consultaMarca = prompt("De las zapatillas vistas anteriormente... que marca te interesa??")
-    let zapatillasEncontradas = [];  
-   
-
-    // bucle para traer desde el array de objetos la zapatilla segun la marca que le interese al cliente
-    for (let i = 0; i < zapatillas.length; i++) {
-        if (zapatillas[i].marca.toLowerCase() == consultaMarca.toLowerCase()) { // se le asigna tolowercase para facilitar la busqueda de caracteres iguales
-           zapatillasEncontradas.push(zapatillas[i]);  //usando el metodo push se agregan todas las coincidencias al array vacio
-        } 
-    };
-
-    
-    // se crea condicion si el nuevo array de zapatillas es mayor a 0 se recorre con un bucle para enlistar en un alert los modelos encontrados
-    if (zapatillasEncontradas.length > 0) {
-        let resultado = `Zapatillas encontradas: \n`;
-        for (let i = 0; i < zapatillasEncontradas.length; i++) {
-            resultado += `Indice: ${zapatillasEncontradas[i].id} Marca: ${zapatillasEncontradas[i].marca} Color: ${zapatillasEncontradas[i].color} Talla: ${zapatillasEncontradas[i].talla} Stock: ${zapatillasEncontradas[i].stock} Valor$: ${zapatillasEncontradas[i].valor} \n`
-        };
-
-        let respuesta = confirm(`${resultado}Quieres buscar otros modelos?`); // se agrega confirm para preguntar si el cliente quiere consultar otro modelo
-        console.log(152,respuesta);
-
-        
-        if (respuesta) {
-            verZapatillas()
-        } else {
-            console.log("paso por aqui")
-            cotizaZapatillas() 
-        }
-    } else {
-        alert(`No se encontro el modelo indicado`);
-        verZapatillas();
-    }
-
-    
-}
-/* verZapatillas();  */
-
 
 
 function cotizaZapatillas() {
@@ -300,19 +225,10 @@ function mostrarCarrito() {
 
     const lineaDivision = document.createElement("hr");
     lineaDivision.classList.add("lineaEstilo")
+    
     divHijo.appendChild(lineaDivision);
     calcularCarrito()
     divHijo.appendChild(lineaDivision);
-    
-    /* const btnEliminar = document.createElement('button');
-    btnEliminar.classList.add('btn', 'btn-danger', 'mx-5');
-    btnEliminar.textContent = 'Limpiar carrito';
-    
-    btnEliminar.addEventListener('click', limpiarCarrito);
-    
-    cardPadre.appendChild(btnEliminar);
-    */
-
     
 
 }
@@ -323,8 +239,10 @@ const divHijo = document.createElement("div")
 divHijo.classList.add("divHijo")
 cardPadre.appendChild(divHijo)
 
-const divlimpiar = document.querySelector(".divHijo")
 
+const listaz = document.querySelector(".listaZapatilla")
+const divlimpiar = document.querySelector(".divHijo")
+const listas = document.querySelector(".listaSuma")
 
 
 const btnEliminar = document.createElement('button');
@@ -338,16 +256,15 @@ cardPadre.appendChild(btnEliminar);
 function limpiarCarrito() {
 
     carrito = [];
-   /*  const lineastile = document.querySelector(".lineaEstilo")
     
-    const listaz = document.querySelector(".listaZapatilla") */
-    /* divHijo.remove(listas); */
-    /* cardPadre.removeChild(listaz)
-    cardPadre.removeChild(lineastile) */
-    const listas = document.querySelector(".listaSuma")
+    
+     
+    
+    /* const lineastile = document.querySelector(".lineaEstilo")
+    cardPadre.removeChild(lineastile)  */
+    
     divHijo.innerText = "";
     calcularCarrito();
-   /*  cardPadre.appendChild(valorTotal); */  // usar innertext para eliminar contenido 
     mostrarCarrito();
     
     
@@ -365,9 +282,11 @@ mostrarCarrito()
 
 
 
+// cardPadre.removeChild(listaz)
 
 
 
 
 
-// interaccion con dom eventos y storage(enviar datos al storage y recuperarlos)
+
+// interaccion con dom eventos y storage(enviar datos al storage y recuperarlos)aaaaa
