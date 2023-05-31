@@ -2,28 +2,208 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Courgette&family=Roboto:ital@1&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.7/dist/umd/popper.min.js"
+    integrity="sha384-zYPOMqeu1DAVkHiLqWBUTcbYfZ8osu1Nd6Z89ify25QV9guujx43ITvfi12/QExE"
+    crossorigin="anonymous"></script> <!--link boostrap -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.min.js"
+    integrity="sha384-Y4oOpwW3duJdCWv5ly8SCFYWqFDsfob/3GkgExXKV4idmbt98QcxXYs9UoXAB7BZ"
+    crossorigin="anonymous"></script> <!--link boostrap -->
+  <link rel="stylesheet" href="main.css">
 
-    <title>Document</title>
+
+
+  <title>Document</title>
 </head>
 
 <body>
 
-   
+  <div class="contenedorTitulo">
+    <h1 class="titulo"> TusTillas </h1>
+  </div>
+
+  
+  <nav class="navbar navbar-expand-lg bg-body-tertiary">
+    <div class="container-fluid">
+      <p class="navbar-brand">Tus nuevas zapatillas están aqui!</p>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="#">Inicio</a>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="index.html" role="button" data-bs-toggle="dropdown"
+              aria-expanded="false">
+              Marcas
+            </a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="#">Action</a></li>
+              <li><a class="dropdown-item" href="#">Another action</a></li>
+              <li>
+                <hr class="dropdown-divider">
+              </li>
+              <li><a class="dropdown-item" href="#">Something else here</a></li>
+            </ul>
+          </li>
+        </ul>
+        <form class="d-flex" role="search">
+          <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+          <button class="btn btn-outline-success" type="submit">Buscar</button>
+        </form>
+        <button class="btn btn-secondary" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasScrolling" aria-controls="offcanvasScrolling">
+          <img src="/img/carrito.jpg" class="imgcarrito" alt="carrito">
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  
+
+  <div class="offcanvas offcanvas-start" data-bs-scroll="true" data-bs-backdrop="false" tabindex="-1" id="offcanvasScrolling" aria-labelledby="offcanvasScrollingLabel">
+    <div class="offcanvas-header">
+      <h5 class="offcanvas-title" id="offcanvasScrollingLabel">Tu carrito de compras</h5>
+      <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+    <div class="offcanvas-body">
+      
+    </div>
+  </div>
 
 
+  <!-- CATALOGO ZAPATILLAS -->
 
 
+  <section class="containerCards">
+
+    <div class="card" id="z1">
+      <img src="img/nike-colorblanco.jpg" class="card-img-top" alt="...">
+      <div class="card-body">
+      </div>
+    </div>
+
+    <div class="card" id="z2">
+      <img src="img/nike-colornegro.jpg" class="card-img-top" alt="...">
+      <div class="card-body">
+      </div>
+    </div>
+
+    <div class="card" id="z3">
+      <img src="img/nike-colorrojo.jpg" class="card-img-top" alt="...">
+      <div class="card-body">
+      </div>
+    </div>
 
     
 
+    
+  </section>
+
+  <section class="containerCards">
+
+    <div class="card" id="z4">
+      <img src="img/puma-colornegro.jpg" class="card-img-top" alt="...">
+      <div class="card-body">
+      </div>
+    </div>
+
+    <div class="card" id="z5">
+      <img src="img/puma-colorblanco.jpg" class="card-img-top" alt="...">
+      <div class="card-body">
+      </div>
+    </div>
+
+    <div class="card" id="z6">
+      <img src="img/puma-colorpikachu.jpg" class="card-img-top" alt="...">
+      <div class="card-body">
+      </div>
+    </div>
+
+    
+  </section>
+
+  <section class="containerCards">
+
+   
+
+    <div class="card" id="z7">
+      <img src="img/DC-colorblanco.jpg" class="card-img-top" alt="...">
+      <div class="card-body">
+      </div>
+    </div>
+
+    <div class="card" id="z8">
+      <img src="img/DC-colornegro.jpg" class="card-img-top" alt="...">
+      <div class="card-body">
+      </div>
+    </div>
+
+    <div class="card" id="z9">
+      <img src="img/DC-colorplomo.jpg" class="card-img-top" alt="...">
+      <div class="card-body">
+      </div>
+    </div>
+
+    
+  </section>
+
+  <section class="containerCards">
+
+    
+
+    <div class="card" id="z10">
+      <img src="img/adidas-colorplomo.jpg" class="card-img-top" alt="...">
+      <div class="card-body">
+      </div>
+    </div>
+
+    <div class="card" id="z11">
+      <img src="img/adidas-colorblanco.jpg" class="card-img-top" alt="...">
+      <div class="card-body">
+      </div>
+    </div>
+  
+    <div class="card" id="z12">
+      <img src="img/adidas-colornegro.jpg" class="card-img-top" alt="...">
+      <div class="card-body">
+      </div>
+    </div>
+
+    
+
+    
+  </section>
 
 
 
-    <script src="index.js"></script>
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <script src="index.js"></script>
 </body>
 
 </html>
