@@ -94,34 +94,6 @@ let zapatillas = [{
 console.log(zapatillas.length);
 
 
-function cotizaZapatillas() {
-
-    let consultaIndice = parseInt(prompt(`Indica el indice de la zapatilla que te interesa`));
-    
-
-    if (consultaIndice <= 12) {
-
-        for (i = 0; i < zapatillas.length; i ++) {
-            if (consultaIndice == zapatillas[i].id) {
-                carrito.push(zapatillas[i])
-                console.table(carrito)
-            }
-        }
-        let continuar = confirm("Desea seguir agregando zapatillas al carrito??")
-        console.log(continuar)
-        if (continuar) {
-            console.log("miga de pan")
-            cotizaZapatillas()   
-        } else {
-            calcularCarrito()
-        }
-
-    } else {
-        alert("El id ingresado es invalido")
-        cotizaZapatillas()
-    };
-}
-
 
 let carrito = []
 
