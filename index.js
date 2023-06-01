@@ -1,7 +1,6 @@
 
 
-alert("!Bienvenido a TusTillas!");
-
+Swal.fire('!Bienvenido a TusTillas!')
 
 
 let zapatillas = [{
@@ -93,8 +92,7 @@ let zapatillas = [{
 
 console.log(zapatillas.length);
 
-
-
+ 
 let carrito = []
 
 
@@ -168,18 +166,29 @@ function agregarZapatilla(event) {
     const indice = event.target.getAttribute("data-indice"); 
     const zapatilla = zapatillas[indice]; 
 
-    carrito = [...carritoObjeto] 
-    carrito.push(zapatilla); 
-
+    if (carritoObjeto == null) {
+        carrito.push(zapatilla);
+         
+    } else if (carritoObjeto.length > 0) {
+        carrito = [...carritoObjeto];
+        
+    } else {
+        
+    }
+      
+     
+    
+    
     const carritoJSON = JSON.stringify(carrito);
     localStorage.setItem("carritoGuardado", carritoJSON);
 
     
-
-
     mostrarCarrito();
 
 }
+
+const carritoEnLocalstorage = localStorage.getItem("carritoGuardado") 
+const carritoObjeto = JSON.parse(carritoEnLocalstorage)
 
 
 
@@ -228,6 +237,7 @@ cardPadre.appendChild(btnEliminar);
 function limpiarCarrito() {
 
     carrito = [];
+    localStorage.clear()
     
     
      
@@ -245,10 +255,9 @@ function limpiarCarrito() {
 
 
 
-const carritoEnLocalstorage = localStorage.getItem("carritoGuardado") 
-const carritoObjeto = JSON.parse(carritoEnLocalstorage)
+
 console.log(carritoObjeto)
-mostrarCarrito()
+/* mostrarCarrito() */
 
 
 
