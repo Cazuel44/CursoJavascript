@@ -89,4 +89,21 @@ body {
     color: black;
 }
 
+.btn-suma {
+    color: white;
+    background-color: red;
+    width: 15px;
+    border-color: black;
+    border-radius: 5px;
+    margin: 3px;
+}
+
+.btn-resta {
+    color: white;
+    background-color: red;
+    width: 15px;
+    border-color: black;
+    border-radius: 5px;
+}
+
 

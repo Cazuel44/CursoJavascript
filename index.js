@@ -9,42 +9,48 @@ let zapatillas = [{
     talla: 41,
     stock: 12,
     valor: 50000,
-    id: 1
+    id: 1,
+    cantidad: 1
 },{
     marca: "Nike",
     color: "negro",
     talla: 38,
     stock: 15,
     valor: 40000,
-    id: 5
+    id: 5,
+    cantidad: 1
 }, {
     marca: "Nike",
     color: "rojo",
     talla: 39,
     stock: 4,
     valor: 38000,
-    id: 10
+    id: 10,
+    cantidad: 1
 }, {
     marca: "Puma",
     color: "negro",
     talla: 40,
     stock: 10,
     valor: 29000,
-    id: 4
+    id: 4,
+    cantidad: 1
 }, {
     marca: "Puma",
     color: "Blanco",
     talla: 41,
     stock: 2,
     valor: 23000,
-    id: 7
+    id: 7,
+    cantidad: 1
 }, {
     marca: "Puma",
     color: "pikachu",
     talla: 42,
     stock: 20,
     valor: 36000,
-    id: 12
+    id: 12,
+    cantidad: 1
 
 }, {
     marca: "DC",
@@ -52,55 +58,96 @@ let zapatillas = [{
     talla: 41,
     stock: 9,
     valor: 34000,
-    id: 8
+    id: 8,
+    cantidad: 1
 }, {
     marca: "DC",
     color: "negro",
     talla: 42,
     stock: 14,
     valor: 26000,
-    id: 9
+    id: 9,
+    cantidad: 1
 }, {
     marca: "DC",
     color: "plomo",
     talla: 38,
     stock: 8,
     valor: 35000,
-    id: 3
+    id: 3,
+    cantidad: 1
 },  {
     marca: "Adidas",
     color: "plomo",
     talla: 41,
     stock: 20,
     valor: 44000,
-    id: 11
+    id: 11,
+    cantidad: 1
 }, {
     marca: "Adidas",
     color: "Blanco",
     talla: 41,
     stock: 7,
     valor: 37000,
-    id: 6
+    id: 6,
+    cantidad: 1
 }, {
     marca: "Adidas",
     color: "negro",
     talla: 42,
     stock: 6,
     valor: 40000,
-    id: 2
+    id: 2,
+    cantidad: 1
 }];
 
 console.log(zapatillas.length);
 
+
+let btnSearch = document.querySelector(".btn", " btn-outline-success");
+btnSearch.addEventListener("click", buscarMarca)
+
+let consultaMarca = document.querySelector(".form-control", "me-2");
+consultaMarca.addEventListener("keydown", function(event) {
+    if (event.key === "Enter") {
+      event.preventDefault();
+      buscarMarca();
+    }
+});
+
+function buscarMarca() {
+    let consultaMarca = document.querySelector(".form-control", "me-2").value;
+    let zapatillasEncontradas = [];
+    
+
+    for (let i = 0; i < zapatillas.length; i++) {
+        if (zapatillas[i].marca.toLowerCase() == consultaMarca.toLowerCase()) {
+            zapatillasEncontradas.push(zapatillas[i]);
+        }
+    }
+
+    if (zapatillasEncontradas.length > 0) {
+        Swal.fire('Si tenemos modelos de la marca que buscas, sigue navegando para agregar al carro');
+    } else {
+        Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'No tenemos esa marca!'
+        });
+    }
+
+    
+}
+
  
 let carrito = []
-
 
 function calcularCarrito (){
     let suma = 0
 
     for (i = 0; i < carrito.length; i++) {
-        suma += carrito[i].valor 
+        suma += carrito[i].valor * carrito[i].cantidad
     };
 
     valorTotal = document.createElement("li")
@@ -166,21 +213,54 @@ function agregarZapatilla(event) {
     const indice = event.target.getAttribute("data-indice"); 
     const zapatilla = zapatillas[indice]; 
 
-    if (carritoObjeto == null) {
+   /*  if (carritoObjeto == null) {
         carrito.push(zapatilla);
          
-    } else if (carritoObjeto.length > 0) {
+    } else if (carritoObjeto.length > 0) {   // este codigo comentado puede servir para el local storage no olvidar ni borrar
         carrito = [...carritoObjeto];
         
     } else {
         
+    } */
+    
+    const zapatillaExistente = carrito.find((item) => item.id === zapatilla.id);
+
+    if (zapatillaExistente) {
+        zapatillaExistente.cantidad += 1;
+        console.log('Se ha sumado una zapatilla al carrito');
+    } else {
+        zapatilla.cantidad = 1;
+        carrito.push(zapatilla);
+        console.log('Zapatilla agregada al carrito');
     }
-      
-     
     
-    
+
     const carritoJSON = JSON.stringify(carrito);
     localStorage.setItem("carritoGuardado", carritoJSON);
+
+    let timerInterval
+    Swal.fire({
+        icon: 'success',
+        title: 'Producto agregado al carrito',
+        /* html: 'I will close in <b></b> milliseconds.', */
+        timer: 1000,
+        timerProgressBar: true,
+        didOpen: () => {
+          Swal.showLoading()
+          const b = Swal.getHtmlContainer().querySelector('b')
+          timerInterval = setInterval(() => {
+            b.textContent = Swal.getTimerLeft()
+          }, 100)
+        },
+        willClose: () => {
+          clearInterval(timerInterval)
+        }
+    }).then((result) => {
+        
+        if (result.dismiss === Swal.DismissReason.timer) {
+          console.log('I was closed by the timer')
+        }
+    })
 
     
     mostrarCarrito();
@@ -192,13 +272,63 @@ const carritoObjeto = JSON.parse(carritoEnLocalstorage)
 
 
 
+
+
 function mostrarCarrito() {
+
+    divHijo.innerHTML = "";
+
+    
 
     carrito.forEach((zapatilla) => {
         const muestraCarro = document.createElement("li");
         muestraCarro.classList.add("listaZapatilla") // borrar en caso de error
-        muestraCarro.textContent = `${zapatilla.marca} Color: ${zapatilla.color} `;
+        muestraCarro.textContent = `${zapatilla.marca} Color: ${zapatilla.color} Cantidad: ${zapatilla.cantidad}`;
 
+        function sumarZapatilla(id) {
+            const zapatillaExistente = carrito.find((item) => item.id === id);
+          
+            if (zapatillaExistente) {
+              zapatillaExistente.cantidad += 1;
+              console.log("Se ha sumado una zapatilla al carrito");
+            }
+          
+            const carritoJSON = JSON.stringify(carrito);
+            localStorage.setItem("carritoGuardado", carritoJSON);
+          
+            mostrarCarrito();
+        }
+
+        function restarZapatilla(id) {
+            const zapatillaExistente = carrito.find((item) => item.id === id);
+          
+            if (zapatillaExistente) {
+              zapatillaExistente.cantidad -= 1;
+              console.log("Se ha sumado una zapatilla al carrito");
+            }
+          
+            const carritoJSON = JSON.stringify(carrito);
+            localStorage.setItem("carritoGuardado", carritoJSON);
+          
+            mostrarCarrito();
+        }
+
+        const botonSumar = document.createElement("button");
+        botonSumar.classList.add("btn-suma")
+        botonSumar.textContent = "+";
+        botonSumar.addEventListener("click", () => {
+            sumarZapatilla(zapatilla.id);
+        });
+
+        const botonEliminar = document.createElement("button");
+        botonEliminar.classList.add("btn-resta")
+        botonEliminar.textContent = "-";
+        botonEliminar.addEventListener("click", () => {
+            restarZapatilla(zapatilla.id);
+        });
+
+        muestraCarro.appendChild(botonSumar);
+        muestraCarro.appendChild(botonEliminar);
         divHijo.appendChild(muestraCarro);
        
     });
@@ -251,7 +381,6 @@ function limpiarCarrito() {
     
     
 };
-
 
 
 
