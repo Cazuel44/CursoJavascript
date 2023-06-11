@@ -3,6 +3,7 @@
 Swal.fire('!Bienvenido a TusTillas!')
 
 
+
 let zapatillas = [{
     marca: "Nike",
     color: "Blanco",
@@ -213,15 +214,7 @@ function agregarZapatilla(event) {
     const indice = event.target.getAttribute("data-indice"); 
     const zapatilla = zapatillas[indice]; 
 
-   /*  if (carritoObjeto == null) {
-        carrito.push(zapatilla);
-         
-    } else if (carritoObjeto.length > 0) {   // este codigo comentado puede servir para el local storage no olvidar ni borrar
-        carrito = [...carritoObjeto];
-        
-    } else {
-        
-    } */
+
     
     const zapatillaExistente = carrito.find((item) => item.id === zapatilla.id);
 
@@ -245,13 +238,6 @@ function agregarZapatilla(event) {
         /* html: 'I will close in <b></b> milliseconds.', */
         timer: 1000,
         timerProgressBar: true,
-        didOpen: () => {
-          Swal.showLoading()
-          const b = Swal.getHtmlContainer().querySelector('b')
-          timerInterval = setInterval(() => {
-            b.textContent = Swal.getTimerLeft()
-          }, 100)
-        },
         willClose: () => {
           clearInterval(timerInterval)
         }
@@ -303,8 +289,12 @@ function mostrarCarrito() {
             const zapatillaExistente = carrito.find((item) => item.id === id);
           
             if (zapatillaExistente) {
-              zapatillaExistente.cantidad -= 1;
-              console.log("Se ha sumado una zapatilla al carrito");
+                if (zapatillaExistente.cantidad > 0) {
+                    zapatillaExistente.cantidad -= 1;
+                    console.log("Se resta una zapatilla del carrito");
+                } else {
+                    console.log("Tienes la cantidad minima de zapatillas");
+                }
             }
           
             const carritoJSON = JSON.stringify(carrito);
@@ -368,7 +358,11 @@ function limpiarCarrito() {
 
     carrito = [];
     localStorage.clear()
-    
+    Swal.fire(
+        'Carrito limpiado exitosamente!',
+        '',
+        'success'
+    )
     
      
     
@@ -386,14 +380,57 @@ function limpiarCarrito() {
 
 
 console.log(carritoObjeto)
-/* mostrarCarrito() */
+
+const url = "https://fakestoreapi.com/products"
+
+fetch(url)
+    .then(respuesta=>respuesta.json())
+    .then((datos) => {
+        console.log(datos)
+        mostrarProximosProductos(datos)
+    })
+    .catch(error => console.log("andamos valiendo merga", error))
+
+const contenedorNuevosProductos = document.querySelector(".containerProximosProductos")
+
+function mostrarProximosProductos(datos) {
+    datos.forEach(ropa => {
+        const targetaNuevosProductos = document.createElement("div")
+        targetaNuevosProductos.classList.add("cardNueva")
+
+        const tituloElemento = document.createElement("h3");
+        tituloElemento.classList.add("tituloNuevosProductos")
+        tituloElemento.textContent = ropa.title;
+
+        const lineaTitulo = document.createElement("hr")
+        lineaTitulo.classList.add("lineaTituloDecoracion")
+
+        
+        const descripcionRopa = document.createElement("p");
+        descripcionRopa.classList.add("descripcionNuevosproductos")
+        descripcionRopa.textContent = ropa.description;
+
+        const imagenRopa = document.createElement("img");
+        imagenRopa.classList.add("fotosNuevas")
+        imagenRopa.src = ropa.image;
 
 
+        tituloElemento.appendChild(lineaTitulo)
+        targetaNuevosProductos.appendChild(tituloElemento)
+        targetaNuevosProductos.appendChild(descripcionRopa)
+        targetaNuevosProductos.appendChild(imagenRopa)
+
+        contenedorNuevosProductos.appendChild(targetaNuevosProductos)
+    })
+}
 
 
-
-// cardPadre.removeChild(listaz)
-
+let carritoString = localStorage.getItem("carritoGuardado");
+if(carritoString) {
+    carrito = JSON.parse(carritoString)
+    console.log(carrito)
+    mostrarCarrito()
+}
 
 
 
